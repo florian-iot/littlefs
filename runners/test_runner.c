@@ -136,8 +136,13 @@ typedef struct test_id {
 
 
 // test suites are linked into a custom ld section
+#if defined(__APPLE__)
+extern struct test_suite __start__test_suites __asm("section$start$__DATA$_test_suites");
+extern struct test_suite __stop__test_suites __asm("section$end$__DATA$_test_suites");
+#else
 extern struct test_suite __start__test_suites;
 extern struct test_suite __stop__test_suites;
+#endif
 
 const struct test_suite *test_suites = &__start__test_suites;
 #define TEST_SUITE_COUNT \
@@ -1346,6 +1351,9 @@ static void run_powerloss_none(
         .block_cycles       = BLOCK_CYCLES,
         .cache_size         = CACHE_SIZE,
         .lookahead_size     = LOOKAHEAD_SIZE,
+        .compact_thresh     = COMPACT_THRESH,
+        .metadata_max       = METADATA_MAX,
+        .inline_max         = INLINE_MAX,
     #ifdef LFS_MULTIVERSION
         .disk_version       = DISK_VERSION,
     #endif
@@ -1422,6 +1430,9 @@ static void run_powerloss_linear(
         .block_cycles       = BLOCK_CYCLES,
         .cache_size         = CACHE_SIZE,
         .lookahead_size     = LOOKAHEAD_SIZE,
+        .compact_thresh     = COMPACT_THRESH,
+        .metadata_max       = METADATA_MAX,
+        .inline_max         = INLINE_MAX,
     #ifdef LFS_MULTIVERSION
         .disk_version       = DISK_VERSION,
     #endif
@@ -1515,6 +1526,9 @@ static void run_powerloss_log(
         .block_cycles       = BLOCK_CYCLES,
         .cache_size         = CACHE_SIZE,
         .lookahead_size     = LOOKAHEAD_SIZE,
+        .compact_thresh     = COMPACT_THRESH,
+        .metadata_max       = METADATA_MAX,
+        .inline_max         = INLINE_MAX,
     #ifdef LFS_MULTIVERSION
         .disk_version       = DISK_VERSION,
     #endif
@@ -1606,6 +1620,9 @@ static void run_powerloss_cycles(
         .block_cycles       = BLOCK_CYCLES,
         .cache_size         = CACHE_SIZE,
         .lookahead_size     = LOOKAHEAD_SIZE,
+        .compact_thresh     = COMPACT_THRESH,
+        .metadata_max       = METADATA_MAX,
+        .inline_max         = INLINE_MAX,
     #ifdef LFS_MULTIVERSION
         .disk_version       = DISK_VERSION,
     #endif
@@ -1795,6 +1812,9 @@ static void run_powerloss_exhaustive(
         .block_cycles       = BLOCK_CYCLES,
         .cache_size         = CACHE_SIZE,
         .lookahead_size     = LOOKAHEAD_SIZE,
+        .compact_thresh     = COMPACT_THRESH,
+        .metadata_max       = METADATA_MAX,
+        .inline_max         = INLINE_MAX,
     #ifdef LFS_MULTIVERSION
         .disk_version       = DISK_VERSION,
     #endif
